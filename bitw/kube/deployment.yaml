@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-odigos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-odigos
+  template:
+    metadata:
+      labels:
+        app: java-odigos
+      annotations:
+        odigos.io/auto-instrument: "true"
+    spec:
+      containers:
+        - name: poc-java-odigos
+          image: 512979937293.dkr.ecr.us-east-1.amazonaws.com/poc-java-odigos:bitw-java-odigos
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8082
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
